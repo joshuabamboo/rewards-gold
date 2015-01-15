@@ -13,6 +13,7 @@ class FriendGenerator
     form.pwd = "joshua88"
     button = form.button_with(:value => "submit")
     @mechanize.submit(form, button)
+    
   end
 
   def submit_friend_form
