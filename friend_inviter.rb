@@ -2,15 +2,17 @@ require 'mechanize'
 require 'pry'
 
 class FriendGenerator
-  def initialize
+  def initialize(email, password)
     @mechanize = Mechanize.new
+    @email = email
+    @password = password
   end
 
   def login
     page = @mechanize.get('http://www.rewardsgold.com/members/login.php')
     form = @mechanize.page.form_with(:name => "theForm")
-    form.email_id = "josho2000@aol.com"
-    form.pwd = "joshua88"
+    form.email_id = @email
+    form.pwd = @password
     button = form.button_with(:value => "submit")
     @mechanize.submit(form, button)
     
@@ -34,5 +36,5 @@ class FriendGenerator
   end
 end
 
-f = FriendGenerator.new
+f = FriendGenerator.new("test@example.com", "password")
 f.get_points
