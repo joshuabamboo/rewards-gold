@@ -2,10 +2,11 @@ require 'mechanize'
 require 'pry'
 
 class FriendGenerator
-  def initialize(email, password)
+  def initialize(email, password, point_amount = 10001)
     @mechanize = Mechanize.new
     @email = email
     @password = password
+    @point_amount = point_amount
   end
 
   def login
@@ -15,7 +16,6 @@ class FriendGenerator
     form.pwd = @password
     button = form.button_with(:value => "submit")
     @mechanize.submit(form, button)
-    
   end
 
   def submit_friend_form
@@ -27,14 +27,22 @@ class FriendGenerator
     form.FriendEmail2 = "#{Random.rand(1000000000)}@#{Random.rand(1000000000)}.com"
     button = form.button_with(:value => "Submit")
     @mechanize.submit(form, button)
-    puts 'success'
+  end
+
+  def get_number_of_points
+    num_of_submissions = (@point_amount/500.0).ceil #there are 500 points per submission
+    num_of_submissions.times do 
+      submit_friend_form
+    end
+    @total_num_of_points = num_of_submissions * 500
   end
 
   def get_points
     login
-    submit_friend_form
+    get_number_of_points
+    puts "You've successfully accumulated #{@total_num_of_points} points"
   end
 end
 
-f = FriendGenerator.new("test@example.com", "password")
+f = FriendGenerator.new("josho2000@aol.com", "joshua88")
 f.get_points
