@@ -44,5 +44,5 @@ class FriendGenerator
   end
 end
 
-f = FriendGenerator.new("josho2000@aol.com", "joshua88")
+f = FriendGenerator.new("youremail@example.com", "PASSWORD")
 f.get_points
