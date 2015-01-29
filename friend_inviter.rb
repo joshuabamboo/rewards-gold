@@ -2,7 +2,7 @@ require 'mechanize'
 require 'pry'
 
 class FriendGenerator
-  def initialize(email, password, point_amount = 10001)
+  def initialize(email, password, point_amount = 10000)
     @mechanize = Mechanize.new
     @email = email
     @password = password
